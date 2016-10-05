@@ -1,0 +1,6 @@
+jinja2
+pandas
+pillow
+cpc.stats
+cpc.geogrids
+cpc.geoplot
