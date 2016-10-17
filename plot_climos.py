@@ -67,7 +67,7 @@ for mmdd in pd.date_range('20000101', '20001231').strftime('%m%d'):
     map = Map(cbar_ends='square', title=title)
     # Create a Field
     field = Field(data, geogrid, levels=[0, 33.333, 66.666, 100],
-                  fill_colors=['white', (1, 0.6, 0.16), (0.6, 0.2, .015)])
+                  fill_colors=['white', (1, 0.6, 0.16), (0.6, 0.2, .015)], fill_coastal_vals=True)
     # Plot Field
     map.plot(field)
     # Save plot
