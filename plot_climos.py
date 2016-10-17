@@ -70,12 +70,9 @@ for mmdd in pd.date_range('20000101', '20001231').strftime('%m%d'):
     # Plot Field
     map.plot(field)
     # Save plot
-    os.makedirs(out_dir)
+    os.makedirs(out_dir, exist_ok=True)
     plot_file = '{}/percent-dry-climo-{}.png'.format(out_dir, mmdd)
     map.save(plot_file, dpi=300)
     # Reduce file size
     im = Image.open(plot_file)
     im.convert('P', palette=Image.ADAPTIVE, colors=256).save(plot_file)
-
-
-
