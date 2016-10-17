@@ -52,7 +52,9 @@ geogrid = Geogrid('1deg-global')
 # --------------------------------------------------------------------------------------------------
 # Loop over mmdd's (including 2/29) and create a plot for each day
 #
+print('')
 for mmdd in pd.date_range('20000101', '20001231').strftime('%m%d'):
+    print('\rCreating plot of {}...'.format(mmdd), end='')
     # Render Jinja2 climo file template
     climo_file = climo_templ.render({'mmdd': mmdd})
     # Read in climo data
