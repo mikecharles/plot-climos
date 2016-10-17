@@ -59,8 +59,7 @@ for mmdd in pd.date_range('20000101', '20001231').strftime('%m%d'):
     data = np.fromfile(climo_file, 'float32')
     # Remove missing values
     data = np.where(data == -999, np.nan, data)
-    # Remove < 33.333 (don't want to plot these values at all)
-    data = np.where((~np.isnan(data)) & (data < 33.333), np.nan, data)
+
     # Create a Map
     title_date = date(2000, int(mmdd[0:2]), int(mmdd[2:4])).strftime('%d %b')
     title = 'Percent of Years Without Precip - {}'.format(title_date)
