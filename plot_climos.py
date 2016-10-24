@@ -20,24 +20,26 @@ warnings.filterwarnings("ignore", category=RuntimeWarning)
 # --------------------------------------------------------------------------------------------------
 # Define script usage
 #
-usage = """Usage: {} <CLIMO-TMPL>
+usage = """Usage: {} <CLIMO-TMPL> <OUT-DIR> <WINDOW>
   where:
     CLIMO-TMPL  template of climatology files - any $VAR strings (eg. $HOME) will be
                 replaced with the corresponding environment variable, and {{mmdd}}
                 will be replaced with the value of mmdd in a loop over days of the
                 year in this script
     OUT-DIR     directory to write output image files to
+    WINDOW      window size of the climatology (in days) (eg. 5 or 7)
 """.format(os.path.basename(__file__))
 
 # --------------------------------------------------------------------------------------------------
 # Get command-line args
 #
-if len(sys.argv)-1 < 2:
+if len(sys.argv)-1 < 3:
     print(usage)
     exit(1)
 else:
     climo_tmpl_str = sys.argv[1]
     out_dir = sys.argv[2]
+    window = sys.argv[3]
 
 # --------------------------------------------------------------------------------------------------
 # Make a Jinja2 template from the climo file template
@@ -64,7 +66,8 @@ for mmdd in pd.date_range('20000101', '20001231').strftime('%m%d'):
 
     # Create a Map
     title_date = date(2000, int(mmdd[0:2]), int(mmdd[2:4])).strftime('%d %b')
-    title = 'Percent of Years Without Precip - {}'.format(title_date)
+    title = 'Percent of Years Without Precip\n{}-day valid window ending {}'.format(
+        window, title_date)
     map = Map(cbar_ends='square', title=title)
     # Create a Field
     field = Field(data, geogrid, levels=[0, 33.333, 66.666, 100],
